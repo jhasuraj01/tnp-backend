@@ -1,0 +1,23 @@
+### Create New Job
+POST http://localhost:8080/api/job/
+Content-Type: application/json
+
+{
+    "id": "22000",
+    "title": "SDE 1",
+    "description": "Software Engineer One at Google",
+    "company": "Google India",
+    "location": "Pune",
+    "type": "Full Time",
+    "requirements": [
+        "Java, C++, JavaScript, Python",
+        "Self Motivated",
+        "Good Communication Skills"
+    ],
+   "ctc": 1600000,
+   "baseSalary": 1600000
+}
+
+
+### Get All Jobs
+GET http://localhost:8080/api/job/
