@@ -1,0 +1,24 @@
+### Create New Job
+POST http://localhost:8080/api/job/
+Content-Type: application/json
+
+{
+    "arn": "pcet:jobs:2024",
+    "title": "SDE 1",
+    "description": "Software Engineer One at Google",
+    "company": "Google India",
+    "location": "Pune",
+    "type": "FULL_TIME",
+    "organizationId": "pcet",
+    "requirements": [
+        "Java, C++, JavaScript, Python",
+        "Self Motivated",
+        "Good Communication Skills"
+    ],
+   "ctc": 1600000,
+   "baseSalary": 1600000
+}
+
+
+### Get All Jobs
+GET http://localhost:8080/api/job/
