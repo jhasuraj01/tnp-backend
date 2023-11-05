@@ -4,6 +4,7 @@ import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.request.job.CreateJobRequestBody;
+import com.anorcle.tnp.backend.request.job.UpdateJobRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
@@ -74,15 +75,35 @@ public class JobController {
         return new ResponseEntity(new SuccessResponse<Job>(jobCreatedResponse), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateJob(@PathVariable String id, @RequestBody Job job) {
-        boolean isJobUpdated = jobService.updateJob(id, job);
+    @PutMapping("/")
+    public ResponseEntity<Response> updateJob(@Valid @RequestBody UpdateJobRequestBody updateJobRequestBody) {
 
-        if(!isJobUpdated) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Job> jobOptional = jobService.getJobById(updateJobRequestBody.getId());
+        if(jobOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Job job = jobOptional.get();
+
+        if(updateJobRequestBody.getArn() != null)
+            job.setArn(updateJobRequestBody.getArn());
+        if(updateJobRequestBody.getTitle() != null)
+            job.setTitle(updateJobRequestBody.getTitle());
+        if(updateJobRequestBody.getDescription() != null)
+            job.setDescription(updateJobRequestBody.getDescription());
+        if(updateJobRequestBody.getLocation() != null)
+            job.setLocation(updateJobRequestBody.getLocation());
+        if(updateJobRequestBody.getType() != null)
+            job.setType(updateJobRequestBody.getType());
+        if(updateJobRequestBody.getRequirements() != null)
+            job.setRequirements(updateJobRequestBody.getRequirements());
+        if(updateJobRequestBody.getTotalSalary() != null)
+            job.setTotalSalary(updateJobRequestBody.getTotalSalary());
+
+        Job updateJob = jobService.updateJob(job);
+
+        return new ResponseEntity<>(new SuccessResponse<>(updateJob), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ApplicationStatus;
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Application;
 import com.anorcle.tnp.backend.model.resource.Company;
@@ -85,7 +86,7 @@ public class ApplicationController {
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
     @GetMapping("/company/{companyId}/student/{studentId}")
-    public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer companyId, @PathVariable Integer studentId) {
+    public ResponseEntity<Response> getAllApplicationsByCompanyAndStudentId(@PathVariable Integer companyId, @PathVariable Integer studentId) {
         Optional<Company> companyOptional = companyService.getCompanyById(companyId);
         if(companyOptional.isEmpty()) {
             ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
@@ -140,6 +141,7 @@ public class ApplicationController {
                 .arn(applicationRequestBody.getArn())
                 .job(job)
                 .student(student)
+                .status(ApplicationStatus.REVIEW_PENDING)
                 .build();
 
         Application applicationResponse = applicationService.createApplication(application);

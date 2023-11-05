@@ -32,12 +32,8 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public boolean updateJob(String id, Job job) {
-        if(!jobRepository.existsById(job.getId())) {
-            return false;
-        }
-        jobRepository.save(job);
-        return true;
+    public Job updateJob(Job job) {
+        return jobRepository.save(job);
     }
 
     public boolean deleteJob(Integer id) {

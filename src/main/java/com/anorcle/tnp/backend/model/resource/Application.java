@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.model.resource;
 
+import com.anorcle.tnp.backend.model.constants.ApplicationStatus;
 import com.anorcle.tnp.backend.model.user.Student;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,4 +24,7 @@ public class Application extends Resource {
     @NotNull(message = "Missing Required Properties: application.student")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Student student;
+
+    @NotNull(message = "Missing Required Properties: application.status")
+    private ApplicationStatus status;
 }
