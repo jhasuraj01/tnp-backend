@@ -2,6 +2,7 @@ package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.constants.ApplicationStatus;
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
+import com.anorcle.tnp.backend.model.constants.JobType;
 import com.anorcle.tnp.backend.model.resource.Application;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
@@ -184,9 +185,11 @@ public class ApplicationController {
 
         if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.OFFERED) {
             Student student = application.getStudent();
-            Set<Company> companies = student.getCompanies();
-            companies.add(application.getJob().getCompany());
-            student.setIsPlaced(true);
+            Set<Job> offeredJobs = student.getOfferedJobs();
+            offeredJobs.add(application.getJob());
+            if(application.getJob().getType() == JobType.FULL_TIME) {
+                student.setIsPlaced(true);
+            }
         }
         else if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
             Student student = application.getStudent();

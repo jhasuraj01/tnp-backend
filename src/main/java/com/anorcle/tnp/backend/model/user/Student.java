@@ -1,6 +1,7 @@
 package com.anorcle.tnp.backend.model.user;
 
 import com.anorcle.tnp.backend.model.resource.Company;
+import com.anorcle.tnp.backend.model.resource.Job;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +35,7 @@ public class Student extends User {
     @NotNull(message = "Missing Required Properties: student.isPlaced")
     private Boolean isPlaced;
 
-    @NotNull(message = "Missing Required Properties: student.companies[]")
+    @NotNull(message = "Missing Required Properties: student.jobs[]")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Set<Company> companies;
+    private Set<Job> offeredJobs;
 }

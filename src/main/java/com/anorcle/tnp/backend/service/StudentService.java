@@ -29,10 +29,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
     public List<Student> getStudentsByCompany(Company company) {
-        return studentRepository.findAllByCompanies(company);
+        return studentRepository.findAllByOfferedJobs_Company(company);
     }
     public List<Student> getStudentsByCompanies(Set<Company> companies) {
-        return studentRepository.findAllByCompaniesIn(companies);
+        return studentRepository.findAllByOfferedJobs_CompanyIn(companies);
     }
     public Student updateStudent(Student student) {
         return studentRepository.save(student);

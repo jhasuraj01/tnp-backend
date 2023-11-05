@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-    List<Student> findAllByCompanies(Company company);
-    List<Student> findAllByCompaniesIn(Set<Company> companies);
+    List<Student> findAllByOfferedJobs_Company(Company company);
+    List<Student> findAllByOfferedJobs_CompanyIn(Set<Company> companies);
+
 }

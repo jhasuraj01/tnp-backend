@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "tnp-backend",
-    "dateExported": "2023-11-05T13:10:06.240Z",
+    "dateExported": "2023-11-05T13:35:46.290Z",
     "version": "1.1",
     "folders": [
         {
@@ -202,12 +202,12 @@
             "method": "PUT",
             "sortNum": 15000,
             "created": "2023-11-05T07:38:29.888Z",
-            "modified": "2023-11-05T13:07:40.694Z",
+            "modified": "2023-11-05T13:26:06.933Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"status\": \"BLOCKED\",\n  \"id\": 102\n}",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"status\": \"OFFERED\",\n  \"id\": 102\n}",
                 "form": []
             },
             "tests": []
