@@ -4,6 +4,7 @@ import com.anorcle.tnp.backend.model.resource.Application;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.application.CreateApplicationRequestBody;
+import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
@@ -70,8 +71,8 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<HttpStatus> deleteApplications(@Valid @RequestBody List<Integer> ids) {
-        applicationService.deleteApplications(ids);
+    public ResponseEntity<HttpStatus> deleteApplications(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
+        applicationService.deleteApplications(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

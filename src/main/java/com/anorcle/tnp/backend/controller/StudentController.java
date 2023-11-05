@@ -1,6 +1,7 @@
 package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.user.Student;
+import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.request.student.CreateStudentRequestBody;
 import com.anorcle.tnp.backend.request.student.UpdateStudentRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
@@ -89,8 +90,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<HttpStatus> deleteStudents(@Valid @RequestBody List<Integer> ids) {
-        studentService.deleteStudents(ids);
+    public ResponseEntity<HttpStatus> deleteStudents(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
+        studentService.deleteStudents(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

@@ -3,6 +3,7 @@ package com.anorcle.tnp.backend.controller;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.request.company.CreateCompanyRequestBody;
 import com.anorcle.tnp.backend.request.company.UpdateCompanyRequestBody;
+import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
@@ -82,8 +83,8 @@ public class CompanyController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<HttpStatus> deleteCompanies(@Valid @RequestBody List<Integer> ids) {
-        companyService.deleteCompanies(ids);
+    public ResponseEntity<HttpStatus> deleteCompanies(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
+        companyService.deleteCompanies(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

@@ -3,6 +3,7 @@ package com.anorcle.tnp.backend.controller;
 import com.anorcle.tnp.backend.model.user.Staff;
 import com.anorcle.tnp.backend.request.staff.CreateStaffRequestBody;
 import com.anorcle.tnp.backend.request.staff.UpdateStaffRequestBody;
+import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
@@ -82,8 +83,8 @@ public class StaffController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<HttpStatus> deleteStaffs(@Valid @RequestBody List<Integer> ids) {
-        staffService.deleteStaffs(ids);
+    public ResponseEntity<HttpStatus> deleteStaffs(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
+        staffService.deleteStaffs(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
