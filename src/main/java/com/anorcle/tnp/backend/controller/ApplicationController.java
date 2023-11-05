@@ -7,6 +7,7 @@ import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.application.CreateApplicationRequestBody;
+import com.anorcle.tnp.backend.request.application.UpdateApplicationStatusRequestBody;
 import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
@@ -158,5 +159,20 @@ public class ApplicationController {
     public ResponseEntity<HttpStatus> deleteApplications(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
         applicationService.deleteApplications(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping ("/status")
+    public ResponseEntity<Response> updateApplicationStatus(@Valid @RequestBody UpdateApplicationStatusRequestBody updateApplicationStatusRequestBody) {
+        Optional<Application> applicationOptional = applicationService.getApplicationById(updateApplicationStatusRequestBody.getId());
+        if(applicationOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        Application application = applicationOptional.get();
+        application.setStatus(updateApplicationStatusRequestBody.getStatus());
+        Application updatedApplication = applicationService.updateApplication(application);
+
+        return new ResponseEntity<>(new SuccessResponse<>(updatedApplication), HttpStatus.OK);
     }
 }
