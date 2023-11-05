@@ -117,16 +117,6 @@ public class JobController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/apply")
-    public String applyForJob(@PathVariable String id) {
-        return jobService.applyForJob(id);
-    }
-
-    @DeleteMapping("/{id}/apply")
-    public String undoApplyForJob(@PathVariable String id) {
-        return jobService.undoApplyForJob(id);
-    }
-
     @PostMapping("/{id}/archive")
     public String archiveJob(@PathVariable String id) {
         return jobService.archiveJob(id);

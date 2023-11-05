@@ -46,6 +46,7 @@ public class ApplicationController {
     public ResponseEntity<List<Application>> getAllApplications() {
         return new ResponseEntity<>(applicationService.getAllApplications(), HttpStatus.OK);
     }
+
     @GetMapping("/job/{id}")
     public ResponseEntity<Response> getAllApplicationsByJobId(@PathVariable Integer id) {
         Optional<Job> jobOptional = jobService.getJobById(id);
@@ -59,6 +60,7 @@ public class ApplicationController {
 
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+
     @GetMapping("/student/{id}")
     public ResponseEntity<Response> getAllApplicationsByStudentId(@PathVariable Integer id) {
         Optional<Student> studentOptional = studentService.getStudentById(id);
@@ -72,6 +74,7 @@ public class ApplicationController {
 
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+
     @GetMapping("/company/{id}")
     public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer id) {
         Optional<Company> companyOptional = companyService.getCompanyById(id);
@@ -85,6 +88,7 @@ public class ApplicationController {
 
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+
     @GetMapping("/company/{companyId}/student/{studentId}")
     public ResponseEntity<Response> getAllApplicationsByCompanyAndStudentId(@PathVariable Integer companyId, @PathVariable Integer studentId) {
         Optional<Company> companyOptional = companyService.getCompanyById(companyId);
@@ -106,6 +110,7 @@ public class ApplicationController {
 
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
         Optional<Application> applicationOptional = applicationService.getApplicationById(id);

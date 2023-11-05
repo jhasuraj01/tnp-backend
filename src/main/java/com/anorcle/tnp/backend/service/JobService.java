@@ -41,16 +41,6 @@ public class JobService {
         return true;
     }
 
-    public String applyForJob(String id) {
-        // Apply for job by id
-        return "Applied for job";
-    }
-
-    public String undoApplyForJob(String id) {
-        // Undo apply for job by id
-        return "Application withdrawn";
-    }
-
     public String archiveJob(String id) {
         // Archive job by id
         return "Job archived";
