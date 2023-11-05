@@ -84,6 +84,27 @@ public class ApplicationController {
 
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+    @GetMapping("/company/{companyId}/student/{studentId}")
+    public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer companyId, @PathVariable Integer studentId) {
+        Optional<Company> companyOptional = companyService.getCompanyById(companyId);
+        if(companyOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<Student> studentOptional = studentService.getStudentById(studentId);
+        if(studentOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        Company company = companyOptional.get();
+        Student student = studentOptional.get();
+
+        List<Application> applicationsResponse = applicationService.getAllApplicationsByStudentAndCompany(student, company);
+
+        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
         Optional<Application> applicationOptional = applicationService.getApplicationById(id);

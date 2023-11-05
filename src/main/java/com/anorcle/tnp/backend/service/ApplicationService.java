@@ -43,4 +43,7 @@ public class ApplicationService {
     public List<Application> getAllApplicationsByCompany(Company company) {
         return applicationRepository.findAllByJob_Company(company);
     }
+    public List<Application> getAllApplicationsByStudentAndCompany(Student student, Company company) {
+        return applicationRepository.findAllByStudentAndJob_Company(student, company);
+    }
 }

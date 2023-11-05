@@ -12,4 +12,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     List<Application> findAllByJob(Job job);
     List<Application> findAllByStudent(Student student);
     List<Application> findAllByJob_Company(Company company);
+    List<Application> findAllByStudentAndJob_Company(Student student, Company company);
 }
