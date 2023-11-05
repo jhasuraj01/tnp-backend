@@ -81,7 +81,7 @@ public class StaffController {
             staff.setUserGroup(updateStaffRequestBody.getUserGroup());
     }
 
-    @DeleteMapping("/delete/bulk")
+    @DeleteMapping("/")
     public ResponseEntity<HttpStatus> deleteStaffs(@Valid @RequestBody List<Integer> ids) {
         staffService.deleteStaffs(ids);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

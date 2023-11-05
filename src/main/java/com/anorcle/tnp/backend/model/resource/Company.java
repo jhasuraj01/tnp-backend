@@ -5,11 +5,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data
 @Entity
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Company extends Resource {
-    private Integer name;
+    private String name;
     private String description;
+    private String websiteLink;
 }

@@ -88,7 +88,7 @@ public class StudentController {
             student.setUserGroup(updateStudentRequestBody.getUserGroup());
     }
 
-    @DeleteMapping("/delete/bulk")
+    @DeleteMapping("/")
     public ResponseEntity<HttpStatus> deleteStudents(@Valid @RequestBody List<Integer> ids) {
         studentService.deleteStudents(ids);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
