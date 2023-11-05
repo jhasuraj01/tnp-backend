@@ -2,6 +2,7 @@ package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Application;
+import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.application.CreateApplicationRequestBody;
@@ -10,6 +11,7 @@ import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
 import com.anorcle.tnp.backend.service.ApplicationService;
+import com.anorcle.tnp.backend.service.CompanyService;
 import com.anorcle.tnp.backend.service.JobService;
 import com.anorcle.tnp.backend.service.StudentService;
 import jakarta.validation.Valid;
@@ -29,12 +31,14 @@ public class ApplicationController {
     private final ApplicationService applicationService;
     private final JobService jobService;
     private final StudentService studentService;
+    private final CompanyService companyService;
 
     @Autowired
-    public ApplicationController(ApplicationService applicationService, JobService jobService, StudentService studentService) {
+    public ApplicationController(ApplicationService applicationService, JobService jobService, StudentService studentService, CompanyService companyService) {
         this.applicationService = applicationService;
         this.jobService = jobService;
         this.studentService = studentService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/")
@@ -50,11 +54,36 @@ public class ApplicationController {
         }
 
         Job job = jobOptional.get();
-        List<Application> applicationsResponse = applicationService.getApplicationsByJob(job);
-        
+        List<Application> applicationsResponse = applicationService.getAllApplicationsByJob(job);
+
         return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
     }
+    @GetMapping("/student/{id}")
+    public ResponseEntity<Response> getAllApplicationsByStudentId(@PathVariable Integer id) {
+        Optional<Student> studentOptional = studentService.getStudentById(id);
+        if(studentOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
 
+        Student student = studentOptional.get();
+        List<Application> applicationsResponse = applicationService.getAllApplicationsByStudent(student);
+
+        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+    }
+    @GetMapping("/company/{id}")
+    public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer id) {
+        Optional<Company> companyOptional = companyService.getCompanyById(id);
+        if(companyOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        Company company = companyOptional.get();
+        List<Application> applicationsResponse = applicationService.getAllApplicationsByCompany(company);
+
+        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
         Optional<Application> applicationOptional = applicationService.getApplicationById(id);

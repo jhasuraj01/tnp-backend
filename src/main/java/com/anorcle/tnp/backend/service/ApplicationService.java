@@ -1,7 +1,9 @@
 package com.anorcle.tnp.backend.service;
 
 import com.anorcle.tnp.backend.model.resource.Application;
+import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
+import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.repository.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,13 @@ public class ApplicationService {
     public Optional<Application> getApplicationById(Integer id) {
         return applicationRepository.findById(id);
     }
-    public List<Application> getApplicationsByJob(Job job) {
+    public List<Application> getAllApplicationsByJob(Job job) {
         return applicationRepository.findAllByJob(job);
+    }
+    public List<Application> getAllApplicationsByStudent(Student student) {
+        return applicationRepository.findAllByStudent(student);
+    }
+    public List<Application> getAllApplicationsByCompany(Company company) {
+        return applicationRepository.findAllByJob_Company(company);
     }
 }
