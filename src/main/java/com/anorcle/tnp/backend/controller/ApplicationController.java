@@ -183,16 +183,25 @@ public class ApplicationController {
         Application application = applicationOptional.get();
         application.setStatus(updateApplicationStatusRequestBody.getStatus());
 
+        Student student = application.getStudent();
+        Set<Job> offeredJobs = student.getOfferedJobs();
         if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.OFFERED) {
-            Student student = application.getStudent();
-            Set<Job> offeredJobs = student.getOfferedJobs();
             offeredJobs.add(application.getJob());
             if(application.getJob().getType() == JobType.FULL_TIME) {
                 student.setIsPlaced(true);
             }
         }
-        else if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
-            Student student = application.getStudent();
+        else {
+            offeredJobs.remove(application.getJob());
+            long countOfFullTimeJobs = offeredJobs.stream()
+                    .filter(job -> job.getType() == JobType.FULL_TIME)
+                    .count();
+            if(countOfFullTimeJobs == 0) {
+                student.setIsPlaced(false);
+            }
+        }
+
+        if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
             student.setIsBlocked(true);
         }
 
