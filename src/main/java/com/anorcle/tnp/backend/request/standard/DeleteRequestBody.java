@@ -1,13 +1,13 @@
 package com.anorcle.tnp.backend.request.standard;
 
 import com.anorcle.tnp.backend.request.RequestParent;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class DeleteRequestBody extends RequestParent {
-    @NotBlank(message = "Missing Required Field: body.ids[]")
+    @NotNull(message = "Missing Required Field: body.ids[]")
     List<Integer> ids;
 }
