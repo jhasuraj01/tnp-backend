@@ -17,10 +17,10 @@ import lombok.experimental.SuperBuilder;
 public class Application extends Resource {
 
     @NotNull(message = "Missing Required Properties: application.job")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Job job;
 
     @NotNull(message = "Missing Required Properties: application.student")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Student student;
 }
