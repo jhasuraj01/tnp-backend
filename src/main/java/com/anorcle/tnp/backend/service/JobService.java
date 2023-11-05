@@ -23,7 +23,7 @@ public class JobService {
         return list;
     }
 
-    public Optional<Job> getJob(Integer id) {
+    public Optional<Job> getJobById(Integer id) {
         Optional<Job> job = jobRepository.findById(id);
         return job;
     }

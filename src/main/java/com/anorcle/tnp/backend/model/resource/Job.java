@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "jobs")
 public class Job extends Resource {
 
     @NotBlank(message = "Missing Required Properties: job.title")

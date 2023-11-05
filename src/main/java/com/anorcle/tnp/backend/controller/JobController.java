@@ -40,7 +40,7 @@ public class JobController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJob(@PathVariable Integer id) {
-        Optional<Job> job = jobService.getJob(id);
+        Optional<Job> job = jobService.getJobById(id);
 
         return job
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
