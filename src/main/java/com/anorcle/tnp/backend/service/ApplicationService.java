@@ -32,7 +32,7 @@ public class ApplicationService {
     public Optional<Application> getApplicationById(Integer id) {
         return applicationRepository.findById(id);
     }
-    public List<Application> getApplicationsByJobId(Job job) {
+    public List<Application> getApplicationsByJob(Job job) {
         return applicationRepository.findAllByJob(job);
     }
 }

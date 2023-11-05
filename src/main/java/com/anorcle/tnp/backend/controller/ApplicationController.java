@@ -41,9 +41,22 @@ public class ApplicationController {
     public ResponseEntity<List<Application>> getAllApplications() {
         return new ResponseEntity<>(applicationService.getAllApplications(), HttpStatus.OK);
     }
+    @GetMapping("/job/{id}")
+    public ResponseEntity<Response> getAllApplicationsByJobId(@PathVariable Integer id) {
+        Optional<Job> jobOptional = jobService.getJobById(id);
+        if(jobOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        Job job = jobOptional.get();
+        List<Application> applicationsResponse = applicationService.getApplicationsByJob(job);
+        
+        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getAllApplicationById(@PathVariable Integer id) {
+    public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
         Optional<Application> applicationOptional = applicationService.getApplicationById(id);
         if(applicationOptional.isEmpty()) {
             ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
@@ -89,5 +102,4 @@ public class ApplicationController {
         applicationService.deleteApplications(deleteRequestBody.getIds());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
