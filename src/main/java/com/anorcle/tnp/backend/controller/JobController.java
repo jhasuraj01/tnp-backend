@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.request.job.CreateJobRequestBody;
@@ -53,7 +54,7 @@ public class JobController {
         Optional<Company> companyOptional = companyService.getCompanyById(jobRequestBody.getCompanyId());
 
         if(companyOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse("COMPANY_NOT_FOUND", "Company Not Found");
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
         Company company = companyOptional.get();
@@ -88,7 +89,7 @@ public class JobController {
     public ResponseEntity<Response> deleteJob(@PathVariable Integer id) {
         boolean isDeleted = jobService.deleteJob(id);
         if(!isDeleted) {
-            ErrorResponse errorResponse = new ErrorResponse("NOT_FOUND", "Job Not Found");
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
         SuccessResponse response = new SuccessResponse();

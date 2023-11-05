@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.request.student.CreateStudentRequestBody;
@@ -62,7 +63,7 @@ public class StudentController {
 
             Optional<Student> studentOptional = studentService.getStudentById(updateStudentRequestBody.getId());
             if(studentOptional.isEmpty()) {
-                responses.add(new ErrorResponse("NOT_FOUND", "Student Not Found"));
+                responses.add(new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found"));
                 continue;
             }
             Student student = studentOptional.get();

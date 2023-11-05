@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.request.company.CreateCompanyRequestBody;
 import com.anorcle.tnp.backend.request.company.UpdateCompanyRequestBody;
@@ -59,7 +60,7 @@ public class CompanyController {
 
             Optional<Company> companyOptional = companyService.getCompanyById(updateCompanyRequestBody.getId());
             if(companyOptional.isEmpty()) {
-                responses.add(new ErrorResponse("NOT_FOUND", "Company Not Found"));
+                responses.add(new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found"));
                 continue;
             }
             Company company = companyOptional.get();

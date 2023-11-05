@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Application;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
@@ -41,18 +42,31 @@ public class ApplicationController {
         return new ResponseEntity<>(applicationService.getAllApplications(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Response> getAllApplicationById(@PathVariable Integer id) {
+        Optional<Application> applicationOptional = applicationService.getApplicationById(id);
+        if(applicationOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        Application application = applicationOptional.get();
+
+        return new ResponseEntity<>(new SuccessResponse<>(application), HttpStatus.OK);
+    }
+
     @PostMapping("/")
     public ResponseEntity<Response> createApplications(@Valid @RequestBody CreateApplicationRequestBody applicationRequestBody) {
 
         Optional<Job> jobOptional = jobService.getJobById(applicationRequestBody.getJobId());
         if(jobOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse("JOB_NOT_FOUND", "Job Not Found");
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 
         Optional<Student> studentOptional = studentService.getStudentById(applicationRequestBody.getStudentId());
         if(studentOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse("STUDENT_NOT_FOUND", "Student Not Found");
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 

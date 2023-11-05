@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.user.Staff;
 import com.anorcle.tnp.backend.request.staff.CreateStaffRequestBody;
 import com.anorcle.tnp.backend.request.staff.UpdateStaffRequestBody;
@@ -59,7 +60,7 @@ public class StaffController {
 
             Optional<Staff> staffOptional = staffService.getStaffById(updateStaffRequestBody.getId());
             if(staffOptional.isEmpty()) {
-                responses.add(new ErrorResponse("NOT_FOUND", "Staff Not Found"));
+                responses.add(new ErrorResponse(ErrorCodeEnum.STAFF_NOT_FOUND, "Staff Not Found"));
                 continue;
             }
             Staff staff = staffOptional.get();
