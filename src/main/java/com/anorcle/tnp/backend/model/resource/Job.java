@@ -38,6 +38,6 @@ public class Job extends Resource {
     @NotNull(message = "Missing Required Properties: job.isArchived")
     private boolean isArchived;
 
-    private Integer baseSalary;
+    @NotNull(message = "Missing Required Properties: job.totalSalary")
     private Integer totalSalary;
 }

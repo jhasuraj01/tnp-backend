@@ -28,8 +28,7 @@ public class JobService {
         return job;
     }
 
-    public Job createJob(Job job, String organizationId) {
-        job.setArn(organizationId + ":job:" + job.getId());
+    public Job createJob(Job job) {
         return jobRepository.save(job);
     }
 

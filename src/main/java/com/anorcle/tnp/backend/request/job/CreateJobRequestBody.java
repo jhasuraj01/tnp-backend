@@ -30,4 +30,6 @@ public class CreateJobRequestBody extends RequestParent {
     @NotNull(message = "Requirements can't be null or undefined")
     private String[] requirements;
 
+    @NotNull(message = "totalSalary can't be null or undefined")
+    private Integer totalSalary;
 }

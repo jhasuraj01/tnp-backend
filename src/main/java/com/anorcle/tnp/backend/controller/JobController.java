@@ -2,17 +2,21 @@ package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.request.job.CreateJobRequestBody;
-import com.anorcle.tnp.backend.response.standard.EmptyResponseBody;
+import com.anorcle.tnp.backend.response.standard.ErrorResponse;
+import com.anorcle.tnp.backend.response.standard.Response;
+import com.anorcle.tnp.backend.response.standard.SuccessResponse;
 import com.anorcle.tnp.backend.service.JobService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/job")
 public class JobController {
@@ -43,6 +47,7 @@ public class JobController {
     @PostMapping("/")
     public ResponseEntity<Job> createJob(@Valid @RequestBody CreateJobRequestBody jobRequestBody) {
         Job job = Job.builder()
+                .arn(jobRequestBody.getArn())
                 .title(jobRequestBody.getTitle())
                 .description(jobRequestBody.getDescription())
                 .company(jobRequestBody.getCompany())
@@ -50,8 +55,9 @@ public class JobController {
                 .type(jobRequestBody.getType())
                 .requirements(jobRequestBody.getRequirements())
                 .isArchived(false)
+                .totalSalary(jobRequestBody.getTotalSalary())
                 .build();
-        Job jobCreatedResponse = jobService.createJob(job, jobRequestBody.getOrganizationId());
+        Job jobCreatedResponse = jobService.createJob(job);
         return new ResponseEntity(jobCreatedResponse, HttpStatus.CREATED);
     }
 
@@ -67,12 +73,14 @@ public class JobController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<EmptyResponseBody> deleteJob(@PathVariable Integer id) {
+    public ResponseEntity<Response> deleteJob(@PathVariable Integer id) {
         boolean isDeleted = jobService.deleteJob(id);
         if(!isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            ErrorResponse errorResponse = new ErrorResponse("NOT_FOUND", "Job Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessResponse response = new SuccessResponse();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/apply")
