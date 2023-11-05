@@ -17,4 +17,5 @@ public class UpdateStudentRequestBody extends RequestParent {
     private String middleName;
     private String email;
     private String prn;
+    private Boolean isBlocked;
 }

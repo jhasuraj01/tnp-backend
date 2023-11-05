@@ -1,5 +1,6 @@
 package com.anorcle.tnp.backend.service;
 
+import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudentService {
@@ -25,6 +27,12 @@ public class StudentService {
     }
     public Optional<Student> getStudentById(Integer id) {
         return studentRepository.findById(id);
+    }
+    public List<Student> getStudentsByCompany(Company company) {
+        return studentRepository.findAllByCompanies(company);
+    }
+    public List<Student> getStudentsByCompanies(Set<Company> companies) {
+        return studentRepository.findAllByCompaniesIn(companies);
     }
     public Student updateStudent(Student student) {
         return studentRepository.save(student);

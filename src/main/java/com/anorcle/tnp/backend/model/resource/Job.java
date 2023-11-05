@@ -24,7 +24,7 @@ public class Job extends Resource {
     private String description;
 
     @NotNull(message = "Missing Required Properties: job.company")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
     private Company company;
 
     @NotBlank(message = "Missing Required Properties: job.location")

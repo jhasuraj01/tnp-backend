@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CompanyService {
@@ -25,6 +26,9 @@ public class CompanyService {
     }
     public Optional<Company> getCompanyById(Integer id) {
         return companyRepository.findById(id);
+    }
+    public List<Company> getCompaniesByIds(Set<Integer> ids) {
+        return companyRepository.findAllById(ids);
     }
     public Company updateCompany(Company company) {
         return companyRepository.save(company);

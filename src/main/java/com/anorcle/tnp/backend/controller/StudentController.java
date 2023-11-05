@@ -1,13 +1,17 @@
 package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
+import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.request.student.CreateStudentRequestBody;
+import com.anorcle.tnp.backend.request.student.GetStudentsByCompaniesRequestBody;
+import com.anorcle.tnp.backend.request.student.GetStudentsByCompanyRequestBody;
 import com.anorcle.tnp.backend.request.student.UpdateStudentRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
+import com.anorcle.tnp.backend.service.CompanyService;
 import com.anorcle.tnp.backend.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Validated
@@ -26,15 +28,36 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/students")
 public class StudentController {
     private final StudentService studentService;
+    private final CompanyService companyService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, CompanyService companyService) {
         this.studentService = studentService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Student>> getAllStudents() {
         return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
+    }
+    @GetMapping("/byCompany")
+    public ResponseEntity<Response> getAllStudentsByCompany(@Valid @RequestBody GetStudentsByCompanyRequestBody getStudentsByCompanyRequestBody) {
+        Optional<Company> companyOptional = companyService.getCompanyById(getStudentsByCompanyRequestBody.getCompanyId());
+
+        if(companyOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+        Company company = companyOptional.get();
+        List<Student> students = studentService.getStudentsByCompany(company);
+        return new ResponseEntity<>(new SuccessResponse<>(students), HttpStatus.OK);
+    }
+    @GetMapping("/byCompanies")
+    public ResponseEntity<Response> getAllStudentsByCompanies(@Valid @RequestBody GetStudentsByCompaniesRequestBody getStudentsByCompaniesRequestBody) {
+        List<Company> companies = companyService.getCompaniesByIds(getStudentsByCompaniesRequestBody.getCompanyIds());
+        Set<Company> companiesSet = new HashSet<>(companies);
+        List<Student> students = studentService.getStudentsByCompanies(companiesSet);
+        return new ResponseEntity<>(new SuccessResponse<>(students), HttpStatus.OK);
     }
 
     @PostMapping("/")
@@ -47,7 +70,8 @@ public class StudentController {
                     .firstName(studentRequestBody.getFirstName())
                     .middleName(studentRequestBody.getMiddleName())
                     .lastName(studentRequestBody.getLastName())
-                    .isBanned(false)
+                    .isBlocked(false)
+                    .isPlaced(false)
                     .build()
         ).collect(Collectors.toList());
         return new ResponseEntity<>(studentService.createStudents(students), HttpStatus.CREATED);
@@ -88,6 +112,8 @@ public class StudentController {
             student.setPrn(updateStudentRequestBody.getPrn());
         if(updateStudentRequestBody.getUserGroup() != null)
             student.setUserGroup(updateStudentRequestBody.getUserGroup());
+        if(updateStudentRequestBody.getIsBlocked() != null)
+            student.setIsBlocked(updateStudentRequestBody.getIsBlocked());
     }
 
     @DeleteMapping("/")

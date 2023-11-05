@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Validated
 @RestController
@@ -126,13 +127,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Response> createApplications(@Valid @RequestBody CreateApplicationRequestBody applicationRequestBody) {
-
-        Optional<Job> jobOptional = jobService.getJobById(applicationRequestBody.getJobId());
-        if(jobOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Response> createApplication(@Valid @RequestBody CreateApplicationRequestBody applicationRequestBody) {
 
         Optional<Student> studentOptional = studentService.getStudentById(applicationRequestBody.getStudentId());
         if(studentOptional.isEmpty()) {
@@ -140,8 +135,23 @@ public class ApplicationController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 
-        Job job = jobOptional.get();
         Student student = studentOptional.get();
+
+        if(student.getIsBlocked()) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    ErrorCodeEnum.UNAUTHORIZED_TO_APPLY,
+                    "Failed to apply for Job Application as you have been blocked"
+            );
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        Optional<Job> jobOptional = jobService.getJobById(applicationRequestBody.getJobId());
+        if(jobOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        Job job = jobOptional.get();
 
         Application application = Application.builder()
                 .arn(applicationRequestBody.getArn())
@@ -171,6 +181,18 @@ public class ApplicationController {
 
         Application application = applicationOptional.get();
         application.setStatus(updateApplicationStatusRequestBody.getStatus());
+
+        if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.OFFERED) {
+            Student student = application.getStudent();
+            Set<Company> companies = student.getCompanies();
+            companies.add(application.getJob().getCompany());
+            student.setIsPlaced(true);
+        }
+        else if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
+            Student student = application.getStudent();
+            student.setIsBlocked(true);
+        }
+
         Application updatedApplication = applicationService.updateApplication(application);
 
         return new ResponseEntity<>(new SuccessResponse<>(updatedApplication), HttpStatus.OK);

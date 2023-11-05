@@ -1,14 +1,16 @@
 package com.anorcle.tnp.backend.model.user;
 
-import com.anorcle.tnp.backend.model.doc.Resume;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import com.anorcle.tnp.backend.model.resource.Company;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,5 +28,13 @@ public class Student extends User {
     private String middleName;
     private String lastName;
 
-    private Boolean isBanned;
+    @NotNull(message = "Missing Required Properties: student.isBlocked")
+    private Boolean isBlocked;
+
+    @NotNull(message = "Missing Required Properties: student.isPlaced")
+    private Boolean isPlaced;
+
+    @NotNull(message = "Missing Required Properties: student.companies[]")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Set<Company> companies;
 }
