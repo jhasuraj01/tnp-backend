@@ -4,6 +4,7 @@ import com.anorcle.tnp.backend.model.constants.JobType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.CascadeType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,9 @@ public class Job extends Resource {
     @NotBlank(message = "Missing Required Properties: job.description")
     private String description;
 
-    @NotBlank(message = "Missing Required Properties: job.company")
-    private String company;
+    @NotNull(message = "Missing Required Properties: job.company")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+    private Company company;
 
     @NotBlank(message = "Missing Required Properties: job.location")
     private String location;

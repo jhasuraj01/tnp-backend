@@ -1,10 +1,12 @@
 package com.anorcle.tnp.backend.controller;
 
+import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.request.job.CreateJobRequestBody;
 import com.anorcle.tnp.backend.response.standard.ErrorResponse;
 import com.anorcle.tnp.backend.response.standard.Response;
 import com.anorcle.tnp.backend.response.standard.SuccessResponse;
+import com.anorcle.tnp.backend.service.CompanyService;
 import com.anorcle.tnp.backend.service.JobService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ import java.util.Optional;
 public class JobController {
 
     private final JobService jobService;
+    private final CompanyService companyService;
 
     @Autowired
-    public JobController(JobService jobService) {
+    public JobController(JobService jobService, CompanyService companyService) {
         this.jobService = jobService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/")
@@ -45,12 +49,20 @@ public class JobController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Job> createJob(@Valid @RequestBody CreateJobRequestBody jobRequestBody) {
+    public ResponseEntity<Response> createJob(@Valid @RequestBody CreateJobRequestBody jobRequestBody) {
+        Optional<Company> companyOptional = companyService.getCompanyById(jobRequestBody.getCompanyId());
+
+        if(companyOptional.isEmpty()) {
+            ErrorResponse errorResponse = new ErrorResponse("COMPANY_NOT_FOUND", "Company Not Found");
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+        Company company = companyOptional.get();
+
         Job job = Job.builder()
                 .arn(jobRequestBody.getArn())
                 .title(jobRequestBody.getTitle())
                 .description(jobRequestBody.getDescription())
-                .company(jobRequestBody.getCompany())
+                .company(company)
                 .location(jobRequestBody.getLocation())
                 .type(jobRequestBody.getType())
                 .requirements(jobRequestBody.getRequirements())
@@ -58,7 +70,7 @@ public class JobController {
                 .totalSalary(jobRequestBody.getTotalSalary())
                 .build();
         Job jobCreatedResponse = jobService.createJob(job);
-        return new ResponseEntity(jobCreatedResponse, HttpStatus.CREATED);
+        return new ResponseEntity(new SuccessResponse<Job>(jobCreatedResponse), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
