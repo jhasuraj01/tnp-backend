@@ -1,0 +1,448 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "tnp-backend",
+    "dateExported": "2023-11-05T13:10:06.240Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "student",
+            "containerId": "",
+            "created": "2023-11-04T20:40:44.573Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "99a4468c-0d9e-44ec-8a0a-a6bbd8eaf991",
+            "name": "staff",
+            "containerId": "",
+            "created": "2023-11-05T00:58:25.584Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "a581eb57-bcc3-4468-b7c5-3f7bac9a2000",
+            "name": "company",
+            "containerId": "",
+            "created": "2023-11-05T01:27:40.781Z",
+            "sortNum": 32500
+        },
+        {
+            "_id": "ef094b0b-3d2b-4d1f-8cae-4a281d4d33b1",
+            "name": "job",
+            "containerId": "",
+            "created": "2023-11-04T20:33:45.326Z",
+            "sortNum": 35000
+        },
+        {
+            "_id": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "application",
+            "containerId": "",
+            "created": "2023-11-05T02:39:51.227Z",
+            "sortNum": 45000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "7ba6c052-c3cb-418b-b707-452e2d041c5d",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "ef094b0b-3d2b-4d1f-8cae-4a281d4d33b1",
+            "name": "list all jobs",
+            "url": "/api/job/",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2023-11-04T20:35:01.350Z",
+            "modified": "2023-11-04T20:48:37.591Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "de83aebe-2e2c-46ed-8195-0b22f31a0e68",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "list all applications",
+            "url": "/api/applications/",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2023-11-05T02:39:51.227Z",
+            "modified": "2023-11-05T02:41:31.986Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "500ea015-f7b8-4d7d-8a1d-844439ce4a88",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "list all applications by job",
+            "url": "/api/applications/job/53",
+            "method": "GET",
+            "sortNum": 7500,
+            "created": "2023-11-05T04:54:18.784Z",
+            "modified": "2023-11-05T04:56:49.395Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4ee14a39-7adb-4bf7-accd-9608e024293b",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "list all applications by student",
+            "url": "/api/applications/student/4",
+            "method": "GET",
+            "sortNum": 8750,
+            "created": "2023-11-05T05:00:04.599Z",
+            "modified": "2023-11-05T05:01:06.099Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "413b4a8e-6db2-48ff-a06d-88d70463169d",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "list all applications by company",
+            "url": "/api/applications/company/2",
+            "method": "GET",
+            "sortNum": 9687.5,
+            "created": "2023-11-05T05:32:56.111Z",
+            "modified": "2023-11-05T07:27:33.910Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "dea3c5a7-1026-4c76-9237-a9512fbe5466",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "list all applications by company and student",
+            "url": "/api/applications/company/{companyId}/student/{studentId}",
+            "method": "GET",
+            "sortNum": 9843.8,
+            "created": "2023-11-05T05:11:19.218Z",
+            "modified": "2023-11-05T07:23:43.193Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "companyId",
+                    "value": "2",
+                    "isPath": true
+                },
+                {
+                    "name": "studentId",
+                    "value": "1",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "5702b3de-bb7e-420c-ac89-a77222f960d3",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "ef094b0b-3d2b-4d1f-8cae-4a281d4d33b1",
+            "name": "create new job",
+            "url": "/api/job/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-11-04T20:33:56.640Z",
+            "modified": "2023-11-05T07:21:22.899Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:jobs:2024:job3\",\n  \"title\": \"Software Developer\",\n  \"description\": \"Google 2024 Grads\",\n  \"companyId\": 2,\n  \"location\": \"Banglore\",\n  \"type\": \"FULL_TIME\",\n  \"requirements\": [\n    \"Java, C++, JavaScript, Python\",\n    \"Self Motivated\",\n    \"Good Communication Skills\"\n  ],\n  \"totalSalary\": 1800000\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ab137dca-c5a9-4437-b22a-7c416fc00f77",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "apply (create new application)",
+            "url": "/api/applications/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-11-05T02:39:51.228Z",
+            "modified": "2023-11-05T13:08:30.667Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:application:2024:apply2\",\n  \"jobId\": 3,\n  \"studentId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "382b92a7-ac7d-4875-98b6-de22b6fd28ae",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "ef094b0b-3d2b-4d1f-8cae-4a281d4d33b1",
+            "name": "update job details",
+            "url": "/api/job/",
+            "method": "PUT",
+            "sortNum": 15000,
+            "created": "2023-11-05T07:04:35.112Z",
+            "modified": "2023-11-05T07:19:19.362Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:jobs:2025:job2\",\n  \"id\": 3\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2d3aefe0-b3b0-4bcf-8dd5-c0b954078b47",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "update application status",
+            "url": "/api/applications/status",
+            "method": "PUT",
+            "sortNum": 15000,
+            "created": "2023-11-05T07:38:29.888Z",
+            "modified": "2023-11-05T13:07:40.694Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"status\": \"BLOCKED\",\n  \"id\": 102\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "28e6d9d5-6566-4987-abc7-dfb439635f5c",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "ef094b0b-3d2b-4d1f-8cae-4a281d4d33b1",
+            "name": "delete job",
+            "url": "/api/job/52",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2023-11-04T20:52:03.137Z",
+            "modified": "2023-11-04T20:57:19.010Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8dee44f1-0677-4c12-9b38-3fbfb2ba9b97",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "4f6809d7-b924-465f-9d85-2d0b5b99ae9a",
+            "name": "delete application",
+            "url": "/api/applications/",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2023-11-05T02:39:51.229Z",
+            "modified": "2023-11-05T04:43:42.762Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"organizationId\": \"pcet\",\n  \"ids\": [ 54 ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7a68fb5d-2012-4503-8bc2-265a75645719",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "register new students",
+            "url": "/api/students/",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-04T22:15:26.024Z",
+            "modified": "2023-11-05T03:22:04.313Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"suraj@example.com\",\n    \"firstName\": \"Suraj\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F001\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"rucha@example.com\",\n    \"firstName\": \"Rucha\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F002\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"rohan@example.com\",\n    \"firstName\": \"Rohan\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F003\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"sidhesh@example.com\",\n    \"firstName\": \"Sidhesh\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F004\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d027923a-a6c6-4b93-bf05-ee1a5483a320",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "99a4468c-0d9e-44ec-8a0a-a6bbd8eaf991",
+            "name": "register new staffs",
+            "url": "/api/staffs/",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-05T00:58:25.584Z",
+            "modified": "2023-11-05T01:00:09.844Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"admin@example.com\",\n    \"firstName\": \"Admin\",\n    \"userGroup\": \"pcet:admin\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "afad2846-e841-4c42-9a93-5f4063761680",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "a581eb57-bcc3-4468-b7c5-3f7bac9a2000",
+            "name": "register new companies",
+            "url": "/api/companies/",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-05T01:27:40.781Z",
+            "modified": "2023-11-05T06:59:15.463Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"name\": \"Barclays\",\n    \"arn\": \"pcet:company:barclays\",\n    \"description\": \"Barclays Bank PLC\",\n    \"websiteLink\": \"https://home.barclays\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"name\": \"Google\",\n    \"arn\": \"pcet:company:google\",\n    \"description\": \"Google India\",\n    \"websiteLink\": \"https://google.com\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6fa1fe58-98b1-41e9-a124-0c689cf556a8",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "list all students",
+            "url": "/api/students/",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-11-04T22:19:10.616Z",
+            "modified": "2023-11-04T23:40:03.513Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "52412335-5b89-478b-b1f0-390248edf88a",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "99a4468c-0d9e-44ec-8a0a-a6bbd8eaf991",
+            "name": "list all staffs",
+            "url": "/api/staffs/",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-11-05T00:58:25.585Z",
+            "modified": "2023-11-05T00:59:04.799Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3ef0efad-f291-4a54-8711-95347614e9fa",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "a581eb57-bcc3-4468-b7c5-3f7bac9a2000",
+            "name": "list all companies",
+            "url": "/api/companies/",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-11-05T01:27:40.782Z",
+            "modified": "2023-11-05T01:31:09.117Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9b8b5f6b-c9e4-41b4-aa5d-2143b111d731",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "list all students by company",
+            "url": "/api/students/byCompany",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-11-05T12:57:58.414Z",
+            "modified": "2023-11-05T12:59:05.114Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"organizationId\": \"pcet\",\n    \"companyId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f8874668-5b62-464b-af05-5bf89329f113",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "list all students by companies",
+            "url": "/api/students/byCompanies",
+            "method": "GET",
+            "sortNum": 55000,
+            "created": "2023-11-05T12:59:14.869Z",
+            "modified": "2023-11-05T12:59:47.408Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"organizationId\": \"pcet\",\n    \"companyIds\": [ 1, 2 ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ad7162f4-c179-4c40-8d9b-31d75abb4881",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "11ea44fe-0dcf-4c5c-a8a2-bcb911f2dd9e",
+            "name": "update students detail",
+            "url": "/api/students/",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-11-04T23:40:39.015Z",
+            "modified": "2023-11-05T13:09:01.998Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": 1,\n    \"organizationId\": \"pcet\",\n    \"isBlocked\": false\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0df8c464-c929-4493-9501-3c210bdb54ec",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "99a4468c-0d9e-44ec-8a0a-a6bbd8eaf991",
+            "name": "update staffs detail",
+            "url": "/api/staffs/",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-11-05T00:58:25.586Z",
+            "modified": "2023-11-05T06:57:56.658Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"id\": 5,\n    \"organizationId\": \"pcet\",\n    \"email\": \"admin@example.com\",\n    \"firstName\": \"Admin\",\n    \"userGroup\": \"pcet:admin:2024\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "81371c84-fbda-4b70-bbbf-739e4a7328c4",
+            "colId": "53436094-0ccf-4b8f-abfb-5e73536f71f6",
+            "containerId": "a581eb57-bcc3-4468-b7c5-3f7bac9a2000",
+            "name": "update company detail",
+            "url": "/api/companies/",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-11-05T01:27:40.783Z",
+            "modified": "2023-11-05T07:00:14.362Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"id\": 2,\n    \"websiteLink\": \"https://www.google.com\"\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:8080"
+        }
+    }
+}
