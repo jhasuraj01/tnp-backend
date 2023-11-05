@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "tnp-backend",
-    "dateExported": "2023-11-05T13:35:46.290Z",
+    "dateExported": "2023-11-05T13:56:19.676Z",
     "version": "1.1",
     "folders": [
         {
@@ -202,7 +202,7 @@
             "method": "PUT",
             "sortNum": 15000,
             "created": "2023-11-05T07:38:29.888Z",
-            "modified": "2023-11-05T13:26:06.933Z",
+            "modified": "2023-11-05T13:56:04.529Z",
             "headers": [],
             "params": [],
             "body": {
