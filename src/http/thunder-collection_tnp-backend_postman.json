@@ -1,0 +1,522 @@
+{
+    "info": {
+        "_postman_id": "49e41c29-fff9-4a97-95f7-82260b4e4fe3",
+        "name": "tnp-backend",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "job",
+            "item": [
+                {
+                    "name": "create new job",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/api/job/",
+                            "path": [
+                                "job"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:jobs:2024:job3\",\n  \"title\": \"Software Developer\",\n  \"description\": \"Google 2024 Grads\",\n  \"companyId\": 2,\n  \"location\": \"Banglore\",\n  \"type\": \"FULL_TIME\",\n  \"requirements\": [\n    \"Java, C++, JavaScript, Python\",\n    \"Self Motivated\",\n    \"Good Communication Skills\"\n  ],\n  \"totalSalary\": 1800000\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list all jobs",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/job/",
+                            "path": [
+                                "job"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "delete job",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/api/job/52",
+                            "path": [
+                                "job",
+                                "52"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update job details",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/api/job/",
+                            "path": [
+                                "job"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:jobs:2025:job2\",\n  \"id\": 3\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "student",
+            "item": [
+                {
+                    "name": "register new students",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/api/students/",
+                            "path": [
+                                "students"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"suraj@example.com\",\n    \"firstName\": \"Suraj\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F001\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"rucha@example.com\",\n    \"firstName\": \"Rucha\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F002\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"rohan@example.com\",\n    \"firstName\": \"Rohan\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F003\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"sidhesh@example.com\",\n    \"firstName\": \"Sidhesh\",\n    \"userGroup\": \"pcet:2024\",\n    \"prn\": \"120B1F004\"\n  }\n]"
+                        }
+                    }
+                },
+                {
+                    "name": "list all students",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/students/",
+                            "path": [
+                                "students"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update students detail",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/api/students/",
+                            "path": [
+                                "students"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"id\": 1,\n    \"organizationId\": \"pcet\",\n    \"isBlocked\": false\n  }\n]"
+                        }
+                    }
+                },
+                {
+                    "name": "list all students by company",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/students/byCompany",
+                            "path": [
+                                "students",
+                                "byCompany"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n    \"organizationId\": \"pcet\",\n    \"companyId\": 1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list all students by companies",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/students/byCompanies",
+                            "path": [
+                                "students",
+                                "byCompanies"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n    \"organizationId\": \"pcet\",\n    \"companyIds\": [ 1, 2 ]\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "staff",
+            "item": [
+                {
+                    "name": "register new staffs",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/api/staffs/",
+                            "path": [
+                                "staffs"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"email\": \"admin@example.com\",\n    \"firstName\": \"Admin\",\n    \"userGroup\": \"pcet:admin\"\n  }\n]"
+                        }
+                    }
+                },
+                {
+                    "name": "list all staffs",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/staffs/",
+                            "path": [
+                                "staffs"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update staffs detail",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/api/staffs/",
+                            "path": [
+                                "staffs"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"id\": 5,\n    \"organizationId\": \"pcet\",\n    \"email\": \"admin@example.com\",\n    \"firstName\": \"Admin\",\n    \"userGroup\": \"pcet:admin:2024\"\n  }\n]"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "company",
+            "item": [
+                {
+                    "name": "register new companies",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/api/companies/",
+                            "path": [
+                                "companies"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"name\": \"Barclays\",\n    \"arn\": \"pcet:company:barclays\",\n    \"description\": \"Barclays Bank PLC\",\n    \"websiteLink\": \"https://home.barclays\"\n  },\n  {\n    \"organizationId\": \"pcet\",\n    \"name\": \"Google\",\n    \"arn\": \"pcet:company:google\",\n    \"description\": \"Google India\",\n    \"websiteLink\": \"https://google.com\"\n  }\n]"
+                        }
+                    }
+                },
+                {
+                    "name": "list all companies",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/companies/",
+                            "path": [
+                                "companies"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update company detail",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/api/companies/",
+                            "path": [
+                                "companies"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "[\n  {\n    \"organizationId\": \"pcet\",\n    \"id\": 2,\n    \"websiteLink\": \"https://www.google.com\"\n  }\n]"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "application",
+            "item": [
+                {
+                    "name": "list all applications",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/applications/",
+                            "path": [
+                                "applications"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "apply (create new application)",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/api/applications/",
+                            "path": [
+                                "applications"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"organizationId\": \"pcet\",\n  \"arn\": \"pcet:application:2024:apply2\",\n  \"jobId\": 3,\n  \"studentId\": 1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete application",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/api/applications/",
+                            "path": [
+                                "applications"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"organizationId\": \"pcet\",\n  \"ids\": [ 54 ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list all applications by job",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/applications/job/53",
+                            "path": [
+                                "applications",
+                                "job",
+                                "53"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "list all applications by student",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/applications/student/4",
+                            "path": [
+                                "applications",
+                                "student",
+                                "4"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "list all applications by company and student",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/applications/company/:companyId/student/:studentId",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "key": "companyId",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "studentId",
+                                    "value": "1"
+                                }
+                            ],
+                            "path": [
+                                "applications",
+                                "company",
+                                ":companyId",
+                                "student",
+                                ":studentId"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "list all applications by company",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/api/applications/company/2",
+                            "path": [
+                                "applications",
+                                "company",
+                                "2"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update application status",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/api/applications/status",
+                            "path": [
+                                "applications",
+                                "status"
+                            ],
+                            "host": [
+                                "api"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"organizationId\": \"pcet\",\n  \"status\": \"OFFERED\",\n  \"id\": 102\n}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
