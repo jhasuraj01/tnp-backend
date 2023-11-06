@@ -2,6 +2,7 @@ package com.anorcle.tnp.backend.controller;
 
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Company;
+import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.request.standard.DeleteRequestBody;
 import com.anorcle.tnp.backend.request.student.CreateStudentRequestBody;
@@ -72,6 +73,7 @@ public class StudentController {
                     .lastName(studentRequestBody.getLastName())
                     .isBlocked(false)
                     .isPlaced(false)
+                    .offeredJobs(new HashSet<>())
                     .build()
         ).collect(Collectors.toList());
         return new ResponseEntity<>(studentService.createStudents(students), HttpStatus.CREATED);
