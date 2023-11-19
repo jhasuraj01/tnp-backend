@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +34,6 @@ import jakarta.validation.Valid;
 public class StaffController {
   private final StaffService staffService;
 
-  @Autowired
   public StaffController(StaffService staffService) {
     this.staffService = staffService;
   }
@@ -73,7 +71,7 @@ public class StaffController {
       Staff staff = staffOptional.get();
       updateStaffProperties(staff, updateStaffRequestBody);
       staffService.updateStaff(staff);
-      responses.add(new SuccessResponse());
+      responses.add(new SuccessResponse<>());
     }
 
     return new ResponseEntity<>(responses, HttpStatus.OK);

@@ -5,8 +5,10 @@ import com.anorcle.tnp.backend.request.RequestParent;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class UpdateJobRequestBody extends RequestParent {
   @NotNull(message = "Job id can't be null or undefined")
   private Integer id;

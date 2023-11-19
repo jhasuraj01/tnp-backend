@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,7 +41,6 @@ public class StudentController {
   private final StudentService studentService;
   private final CompanyService companyService;
 
-  @Autowired
   public StudentController(StudentService studentService, CompanyService companyService) {
     this.studentService = studentService;
     this.companyService = companyService;
@@ -110,7 +108,7 @@ public class StudentController {
       Student student = studentOptional.get();
       updateStudentProperties(student, updateStudentRequestBody);
       studentService.updateStudent(student);
-      responses.add(new SuccessResponse());
+      responses.add(new SuccessResponse<>());
     }
 
     return new ResponseEntity<>(responses, HttpStatus.OK);

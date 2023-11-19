@@ -3,7 +3,6 @@ package com.anorcle.tnp.backend.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -37,7 +36,6 @@ public class JobController {
   private final JobService jobService;
   private final CompanyService companyService;
 
-  @Autowired
   public JobController(JobService jobService, CompanyService companyService) {
     this.jobService = jobService;
     this.companyService = companyService;
@@ -81,7 +79,7 @@ public class JobController {
         .totalSalary(jobRequestBody.getTotalSalary())
         .build();
     Job jobCreatedResponse = jobService.createJob(job);
-    return new ResponseEntity(new SuccessResponse<Job>(jobCreatedResponse), HttpStatus.CREATED);
+    return new ResponseEntity<>(new SuccessResponse<Job>(jobCreatedResponse), HttpStatus.CREATED);
   }
 
   @PutMapping("/")
@@ -122,7 +120,7 @@ public class JobController {
       ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
       return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
-    SuccessResponse response = new SuccessResponse();
+    SuccessResponse<?> response = new SuccessResponse<>();
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 

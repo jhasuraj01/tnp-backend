@@ -6,10 +6,12 @@ import com.anorcle.tnp.backend.model.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +24,7 @@ public class RecruitmentDrive extends Resource {
   private User[] recruiter;
 
   @Data
+  @EqualsAndHashCode(callSuper = true)
   public class RecruitmentRound extends Resource {
     private String roundName;
     /** registered and eligible students */

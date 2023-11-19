@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +34,6 @@ import jakarta.validation.Valid;
 public class CompanyController {
   private final CompanyService companyService;
 
-  @Autowired
   public CompanyController(CompanyService companyService) {
     this.companyService = companyService;
   }
@@ -74,7 +72,7 @@ public class CompanyController {
       Company company = companyOptional.get();
       updateCompanyProperties(company, updateCompanyRequestBody);
       companyService.updateCompany(company);
-      responses.add(new SuccessResponse());
+      responses.add(new SuccessResponse<>());
     }
 
     return new ResponseEntity<>(responses, HttpStatus.OK);

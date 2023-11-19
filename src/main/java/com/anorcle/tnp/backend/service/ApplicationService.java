@@ -3,7 +3,6 @@ package com.anorcle.tnp.backend.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.anorcle.tnp.backend.model.resource.Application;
@@ -17,7 +16,6 @@ public class ApplicationService {
 
   private final ApplicationRepository applicationRepository;
 
-  @Autowired
   ApplicationService(ApplicationRepository applicationRepository) {
     this.applicationRepository = applicationRepository;
   }

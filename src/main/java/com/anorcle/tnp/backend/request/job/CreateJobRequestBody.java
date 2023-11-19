@@ -6,8 +6,10 @@ import com.anorcle.tnp.backend.request.RequestParent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class CreateJobRequestBody extends RequestParent {
 
   @NotBlank(message = "arn can't be null, undefined or empty string")

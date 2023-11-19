@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -46,7 +45,6 @@ public class ApplicationController {
   private final StudentService studentService;
   private final CompanyService companyService;
 
-  @Autowired
   public ApplicationController(ApplicationService applicationService, JobService jobService,
       StudentService studentService, CompanyService companyService) {
     this.applicationService = applicationService;
