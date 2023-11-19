@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anorcle.tnp.backend.adapters.PasswordAdapter;
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.user.Staff;
 import com.anorcle.tnp.backend.request.staff.CreateStaffRequestBody;
@@ -33,9 +34,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/staffs")
 public class StaffController {
   private final StaffService staffService;
+  private final PasswordAdapter passwordAdapter;
 
-  public StaffController(StaffService staffService) {
+  public StaffController(StaffService staffService, PasswordAdapter passwordAdapter) {
     this.staffService = staffService;
+    this.passwordAdapter = passwordAdapter;
   }
 
   @GetMapping("/")
@@ -48,8 +51,10 @@ public class StaffController {
     List<Staff> staffs = staffRequestBodies.stream().map(staffRequestBody -> Staff.builder()
         .userGroup(staffRequestBody.getUserGroup())
         .email(staffRequestBody.getEmail())
+        .passwordHash(passwordAdapter.hashPassword(staffRequestBody.getPassword()))
         .firstName(staffRequestBody.getFirstName())
         .lastName(staffRequestBody.getLastName())
+        .designation(staffRequestBody.getDesignation())
         .build()).collect(Collectors.toList());
     return new ResponseEntity<>(staffService.createStaffs(staffs), HttpStatus.CREATED);
   }
@@ -86,6 +91,8 @@ public class StaffController {
       staff.setEmail(updateStaffRequestBody.getEmail());
     if (updateStaffRequestBody.getUserGroup() != null)
       staff.setUserGroup(updateStaffRequestBody.getUserGroup());
+    if (updateStaffRequestBody.getDesignation() != null)
+      staff.setDesignation(updateStaffRequestBody.getDesignation());
   }
 
   @DeleteMapping("/")

@@ -24,14 +24,11 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Student extends User {
-  @NotBlank(message = "Missing Required Properties: user.firstName")
+  @NotBlank(message = "Missing Required Properties: student.prn")
   @Column(unique = true)
   private String prn;
 
-  @NotBlank(message = "Missing Required Properties: student.firstName")
-  private String firstName;
   private String middleName;
-  private String lastName;
 
   @NotNull(message = "Missing Required Properties: student.isBlocked")
   private Boolean isBlocked;

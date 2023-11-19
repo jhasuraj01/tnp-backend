@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anorcle.tnp.backend.adapters.PasswordAdapter;
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.user.Student;
@@ -40,10 +41,13 @@ import jakarta.validation.Valid;
 public class StudentController {
   private final StudentService studentService;
   private final CompanyService companyService;
+  private final PasswordAdapter passwordAdapter;
 
-  public StudentController(StudentService studentService, CompanyService companyService) {
+  public StudentController(StudentService studentService, CompanyService companyService,
+      PasswordAdapter passwordAdapter) {
     this.studentService = studentService;
     this.companyService = companyService;
+    this.passwordAdapter = passwordAdapter;
   }
 
   @GetMapping("/")
@@ -84,6 +88,7 @@ public class StudentController {
         .firstName(studentRequestBody.getFirstName())
         .middleName(studentRequestBody.getMiddleName())
         .lastName(studentRequestBody.getLastName())
+        .passwordHash(passwordAdapter.hashPassword(studentRequestBody.getPassword()))
         .isBlocked(false)
         .isPlaced(false)
         .offeredJobs(new HashSet<>())

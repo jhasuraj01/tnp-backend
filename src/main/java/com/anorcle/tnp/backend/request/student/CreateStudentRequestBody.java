@@ -20,6 +20,8 @@ public class CreateStudentRequestBody extends RequestParent {
 
   @NotBlank(message = "Email can't be null, undefined or empty string")
   private String email;
+  @NotBlank(message = "Password can't be null, undefined or empty string")
+  private String password;
   @NotBlank(message = "PRN can't be null, undefined or empty string")
   private String prn;
 
