@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.anorcle.tnp</groupId>
-	<artifactId>backend</artifactId>
+	<artifactId>tnp-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Training and Placement Backend</name>
+	<name>tnp-backend</name>
 	<description>Training and Placement Backend</description>
 	<properties>
 		<java.version>17</java.version>
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.1.0</version>
+      <version>3.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,7 +64,7 @@
 
 	</dependencies>
 	<build>
-		<defaultGoal>install</defaultGoal>
+		<defaultGoal>package</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
