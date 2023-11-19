@@ -5,11 +5,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum JobType {
-    FULL_TIME("FULL_TIME"),
-    INTERNSHIP("INTERNSHIP");
+  FULL_TIME("FULL_TIME"),
+  INTERNSHIP("INTERNSHIP");
 
-    @Getter
-    private String value;
+  @Getter
+  private String value;
 
 }
-

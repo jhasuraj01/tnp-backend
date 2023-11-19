@@ -5,15 +5,15 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum ApplicationStatus {
-    REVIEW_PENDING("REVIEW_PENDING"),
-    UNDER_EVALUATION("UNDER_EVALUATION"),
-    EXPIRED("EXPIRED"),
-    BLOCKED("BLOCKED"),
-    OFFERED("OFFERED"),
-    REJECTED("REJECTED"),
-    REVOKED("REVOKED");
+  REVIEW_PENDING("REVIEW_PENDING"),
+  UNDER_EVALUATION("UNDER_EVALUATION"),
+  EXPIRED("EXPIRED"),
+  BLOCKED("BLOCKED"),
+  OFFERED("OFFERED"),
+  REJECTED("REJECTED"),
+  REVOKED("REVOKED");
 
-    @Getter
-    private String value;
+  @Getter
+  private String value;
 
 }

@@ -13,7 +13,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Staff extends User {
-    @NotBlank(message = "Missing Required Properties: staff.firstName")
-    private String firstName;
-    private String lastName;
+  @NotBlank(message = "Missing Required Properties: staff.firstName")
+  private String firstName;
+  private String lastName;
+
 }
