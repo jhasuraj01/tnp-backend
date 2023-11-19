@@ -1,0 +1,16 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-20",
+      "path": "<PATH_TO_JDK>",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "<PATH_TO_JDK>",
+  "spring-boot.ls.java.home": "<PATH_TO_JDK>",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive"
+}
