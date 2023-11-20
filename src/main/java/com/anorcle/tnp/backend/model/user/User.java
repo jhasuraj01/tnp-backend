@@ -1,5 +1,7 @@
 package com.anorcle.tnp.backend.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIgnoreProperties("passwordHash")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

@@ -9,5 +9,5 @@ import com.anorcle.tnp.backend.model.user.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-  Optional<User> findByEmailAndPasswordHash(String email, String passwordHash);
+  Optional<User> findByEmail(String email);
 }
