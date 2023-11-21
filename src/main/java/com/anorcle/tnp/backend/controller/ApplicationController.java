@@ -1,5 +1,21 @@
 package com.anorcle.tnp.backend.controller;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.anorcle.tnp.backend.model.constants.ApplicationStatus;
 import com.anorcle.tnp.backend.model.constants.ErrorCodeEnum;
 import com.anorcle.tnp.backend.model.constants.JobType;
@@ -17,196 +33,190 @@ import com.anorcle.tnp.backend.service.ApplicationService;
 import com.anorcle.tnp.backend.service.CompanyService;
 import com.anorcle.tnp.backend.service.JobService;
 import com.anorcle.tnp.backend.service.StudentService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import jakarta.validation.Valid;
 
 @Validated
 @RestController
 @RequestMapping("/api/applications")
 public class ApplicationController {
-    private final ApplicationService applicationService;
-    private final JobService jobService;
-    private final StudentService studentService;
-    private final CompanyService companyService;
+  private final ApplicationService applicationService;
+  private final JobService jobService;
+  private final StudentService studentService;
+  private final CompanyService companyService;
 
-    @Autowired
-    public ApplicationController(ApplicationService applicationService, JobService jobService, StudentService studentService, CompanyService companyService) {
-        this.applicationService = applicationService;
-        this.jobService = jobService;
-        this.studentService = studentService;
-        this.companyService = companyService;
+  public ApplicationController(ApplicationService applicationService, JobService jobService,
+      StudentService studentService, CompanyService companyService) {
+    this.applicationService = applicationService;
+    this.jobService = jobService;
+    this.studentService = studentService;
+    this.companyService = companyService;
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<List<Application>> getAllApplications() {
+    return new ResponseEntity<>(applicationService.getAllApplications(), HttpStatus.OK);
+  }
+
+  @GetMapping("/job/{id}")
+  public ResponseEntity<Response> getAllApplicationsByJobId(@PathVariable Integer id) {
+    Optional<Job> jobOptional = jobService.getJobById(id);
+    if (jobOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Application>> getAllApplications() {
-        return new ResponseEntity<>(applicationService.getAllApplications(), HttpStatus.OK);
+    Job job = jobOptional.get();
+    List<Application> applicationsResponse = applicationService.getAllApplicationsByJob(job);
+
+    return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  }
+
+  @GetMapping("/student/{id}")
+  public ResponseEntity<Response> getAllApplicationsByStudentId(@PathVariable Integer id) {
+    Optional<Student> studentOptional = studentService.getStudentById(id);
+    if (studentOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/job/{id}")
-    public ResponseEntity<Response> getAllApplicationsByJobId(@PathVariable Integer id) {
-        Optional<Job> jobOptional = jobService.getJobById(id);
-        if(jobOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }
+    Student student = studentOptional.get();
+    List<Application> applicationsResponse = applicationService.getAllApplicationsByStudent(student);
 
-        Job job = jobOptional.get();
-        List<Application> applicationsResponse = applicationService.getAllApplicationsByJob(job);
+    return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  }
 
-        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  @GetMapping("/company/{id}")
+  public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer id) {
+    Optional<Company> companyOptional = companyService.getCompanyById(id);
+    if (companyOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/student/{id}")
-    public ResponseEntity<Response> getAllApplicationsByStudentId(@PathVariable Integer id) {
-        Optional<Student> studentOptional = studentService.getStudentById(id);
-        if(studentOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }
+    Company company = companyOptional.get();
+    List<Application> applicationsResponse = applicationService.getAllApplicationsByCompany(company);
 
-        Student student = studentOptional.get();
-        List<Application> applicationsResponse = applicationService.getAllApplicationsByStudent(student);
+    return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  }
 
-        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  @GetMapping("/company/{companyId}/student/{studentId}")
+  public ResponseEntity<Response> getAllApplicationsByCompanyAndStudentId(@PathVariable Integer companyId,
+      @PathVariable Integer studentId) {
+    Optional<Company> companyOptional = companyService.getCompanyById(companyId);
+    if (companyOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/company/{id}")
-    public ResponseEntity<Response> getAllApplicationsByCompanyId(@PathVariable Integer id) {
-        Optional<Company> companyOptional = companyService.getCompanyById(id);
-        if(companyOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }
-
-        Company company = companyOptional.get();
-        List<Application> applicationsResponse = applicationService.getAllApplicationsByCompany(company);
-
-        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+    Optional<Student> studentOptional = studentService.getStudentById(studentId);
+    if (studentOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/company/{companyId}/student/{studentId}")
-    public ResponseEntity<Response> getAllApplicationsByCompanyAndStudentId(@PathVariable Integer companyId, @PathVariable Integer studentId) {
-        Optional<Company> companyOptional = companyService.getCompanyById(companyId);
-        if(companyOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.COMPANY_NOT_FOUND, "Company Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }
+    Company company = companyOptional.get();
+    Student student = studentOptional.get();
 
-        Optional<Student> studentOptional = studentService.getStudentById(studentId);
-        if(studentOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-        }
+    List<Application> applicationsResponse = applicationService.getAllApplicationsByStudentAndCompany(student, company);
 
-        Company company = companyOptional.get();
-        Student student = studentOptional.get();
+    return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  }
 
-        List<Application> applicationsResponse = applicationService.getAllApplicationsByStudentAndCompany(student, company);
-
-        return new ResponseEntity<>(new SuccessResponse<>(applicationsResponse), HttpStatus.OK);
+  @GetMapping("/{id}")
+  public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
+    Optional<Application> applicationOptional = applicationService.getApplicationById(id);
+    if (applicationOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response> getApplicationById(@PathVariable Integer id) {
-        Optional<Application> applicationOptional = applicationService.getApplicationById(id);
-        if(applicationOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
+    Application application = applicationOptional.get();
 
-        Application application = applicationOptional.get();
+    return new ResponseEntity<>(new SuccessResponse<>(application), HttpStatus.OK);
+  }
 
-        return new ResponseEntity<>(new SuccessResponse<>(application), HttpStatus.OK);
+  @PostMapping("/")
+  public ResponseEntity<Response> createApplication(
+      @Valid @RequestBody CreateApplicationRequestBody applicationRequestBody) {
+
+    Optional<Student> studentOptional = studentService.getStudentById(applicationRequestBody.getStudentId());
+    if (studentOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Response> createApplication(@Valid @RequestBody CreateApplicationRequestBody applicationRequestBody) {
+    Student student = studentOptional.get();
 
-        Optional<Student> studentOptional = studentService.getStudentById(applicationRequestBody.getStudentId());
-        if(studentOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.STUDENT_NOT_FOUND, "Student Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
-
-        Student student = studentOptional.get();
-
-        if(student.getIsBlocked()) {
-            ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCodeEnum.UNAUTHORIZED_TO_APPLY,
-                    "Failed to apply for Job Application as you have been blocked"
-            );
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
-
-        Optional<Job> jobOptional = jobService.getJobById(applicationRequestBody.getJobId());
-        if(jobOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
-
-        Job job = jobOptional.get();
-
-        Application application = Application.builder()
-                .arn(applicationRequestBody.getArn())
-                .job(job)
-                .student(student)
-                .status(ApplicationStatus.REVIEW_PENDING)
-                .build();
-
-        Application applicationResponse = applicationService.createApplication(application);
-
-        return new ResponseEntity<>(new SuccessResponse<>(applicationResponse), HttpStatus.CREATED);
+    if (student.getIsBlocked()) {
+      ErrorResponse errorResponse = new ErrorResponse(
+          ErrorCodeEnum.UNAUTHORIZED_TO_APPLY,
+          "Failed to apply for Job Application as you have been blocked");
+      return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<HttpStatus> deleteApplications(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
-        applicationService.deleteApplications(deleteRequestBody.getIds());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    Optional<Job> jobOptional = jobService.getJobById(applicationRequestBody.getJobId());
+    if (jobOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.JOB_NOT_FOUND, "Job Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping ("/status")
-    public ResponseEntity<Response> updateApplicationStatus(@Valid @RequestBody UpdateApplicationStatusRequestBody updateApplicationStatusRequestBody) {
-        Optional<Application> applicationOptional = applicationService.getApplicationById(updateApplicationStatusRequestBody.getId());
-        if(applicationOptional.isEmpty()) {
-            ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
+    Job job = jobOptional.get();
 
-        Application application = applicationOptional.get();
-        application.setStatus(updateApplicationStatusRequestBody.getStatus());
+    Application application = Application.builder()
+        .arn(applicationRequestBody.getArn())
+        .job(job)
+        .student(student)
+        .status(ApplicationStatus.REVIEW_PENDING)
+        .build();
 
-        Student student = application.getStudent();
-        Set<Job> offeredJobs = student.getOfferedJobs();
-        if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.OFFERED) {
-            offeredJobs.add(application.getJob());
-            if(application.getJob().getType() == JobType.FULL_TIME) {
-                student.setIsPlaced(true);
-            }
-        }
-        else {
-            offeredJobs.remove(application.getJob());
-            long countOfFullTimeJobs = offeredJobs.stream()
-                    .filter(job -> job.getType() == JobType.FULL_TIME)
-                    .count();
-            if(countOfFullTimeJobs == 0) {
-                student.setIsPlaced(false);
-            }
-        }
+    Application applicationResponse = applicationService.createApplication(application);
 
-        if(updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
-            student.setIsBlocked(true);
-        }
+    return new ResponseEntity<>(new SuccessResponse<>(applicationResponse), HttpStatus.CREATED);
+  }
 
-        Application updatedApplication = applicationService.updateApplication(application);
+  @DeleteMapping("/")
+  public ResponseEntity<HttpStatus> deleteApplications(@Valid @RequestBody DeleteRequestBody deleteRequestBody) {
+    applicationService.deleteApplications(deleteRequestBody.getIds());
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
 
-        return new ResponseEntity<>(new SuccessResponse<>(updatedApplication), HttpStatus.OK);
+  @PutMapping("/status")
+  public ResponseEntity<Response> updateApplicationStatus(
+      @Valid @RequestBody UpdateApplicationStatusRequestBody updateApplicationStatusRequestBody) {
+    Optional<Application> applicationOptional = applicationService
+        .getApplicationById(updateApplicationStatusRequestBody.getId());
+    if (applicationOptional.isEmpty()) {
+      ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.APPLICATION_NOT_FOUND, "Application Not Found");
+      return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
+
+    Application application = applicationOptional.get();
+    application.setStatus(updateApplicationStatusRequestBody.getStatus());
+
+    Student student = application.getStudent();
+    Set<Job> offeredJobs = student.getOfferedJobs();
+    if (updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.OFFERED) {
+      offeredJobs.add(application.getJob());
+      if (application.getJob().getType() == JobType.FULL_TIME) {
+        student.setIsPlaced(true);
+      }
+    } else {
+      offeredJobs.remove(application.getJob());
+      long countOfFullTimeJobs = offeredJobs.stream()
+          .filter(job -> job.getType() == JobType.FULL_TIME)
+          .count();
+      if (countOfFullTimeJobs == 0) {
+        student.setIsPlaced(false);
+      }
+    }
+
+    if (updateApplicationStatusRequestBody.getStatus() == ApplicationStatus.BLOCKED) {
+      student.setIsBlocked(true);
+    }
+
+    Application updatedApplication = applicationService.updateApplication(application);
+
+    return new ResponseEntity<>(new SuccessResponse<>(updatedApplication), HttpStatus.OK);
+  }
 }
