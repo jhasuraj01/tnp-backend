@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.repository.CompanyRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CompanyService {
 
   private final CompanyRepository companyRepository;
-
-  CompanyService(CompanyRepository companyRepository) {
-    this.companyRepository = companyRepository;
-  }
 
   public List<Company> createCompanies(List<Company> companies) {
     return companyRepository.saveAll(companies);

@@ -10,14 +10,13 @@ import com.anorcle.tnp.backend.model.resource.Company;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.repository.StudentRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
   private final StudentRepository studentRepository;
-
-  StudentService(StudentRepository studentRepository) {
-    this.studentRepository = studentRepository;
-  }
 
   public List<Student> createStudents(List<Student> students) {
     return studentRepository.saveAll(students);

@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.repository.JobRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JobService {
 
   private final JobRepository jobRepository;
-
-  public JobService(JobRepository jobRepository) {
-    this.jobRepository = jobRepository;
-  }
 
   public List<Job> getAllJobs() {
     List<Job> list = new ArrayList<>();

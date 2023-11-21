@@ -11,14 +11,13 @@ import com.anorcle.tnp.backend.model.resource.Job;
 import com.anorcle.tnp.backend.model.user.Student;
 import com.anorcle.tnp.backend.repository.ApplicationRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ApplicationService {
 
   private final ApplicationRepository applicationRepository;
-
-  ApplicationService(ApplicationRepository applicationRepository) {
-    this.applicationRepository = applicationRepository;
-  }
 
   public List<Application> getAllApplications() {
     return applicationRepository.findAll();

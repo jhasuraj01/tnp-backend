@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import com.anorcle.tnp.backend.model.user.Staff;
 import com.anorcle.tnp.backend.repository.StaffRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class StaffService {
 
   private final StaffRepository staffRepository;
-
-  StaffService(StaffRepository staffRepository) {
-    this.staffRepository = staffRepository;
-  }
 
   public List<Staff> createStaffs(List<Staff> staffs) {
     return staffRepository.saveAll(staffs);
