@@ -1,6 +1,7 @@
 package com.anorcle.tnp.backend.adapters;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -8,18 +9,22 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class PasswordAdapter {
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
   public PasswordAdapter() {
-    this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    this.passwordEncoder = new BCryptPasswordEncoder();
   }
 
   public String hashPassword(String password) {
-    return this.bCryptPasswordEncoder.encode(password);
+    return this.passwordEncoder.encode(password);
   }
 
   public Boolean matchPassword(String password, String passwordHash) {
-    return this.bCryptPasswordEncoder.matches(password, passwordHash);
+    return this.passwordEncoder.matches(password, passwordHash);
+  }
+
+  public PasswordEncoder getEncoder() {
+    return this.passwordEncoder;
   }
 
 }
